@@ -28,7 +28,7 @@ contract("Fundraiser", accounts => {
         assert.equal(actual, imageURL, "imageURL should match");
     });
     it("gets the beneficiary description", async () => {
-        const actual = await fundraiser.bio();
+        const actual = await fundraiser.description();
         assert.equal(actual, description, "description should match");
     });
   });
