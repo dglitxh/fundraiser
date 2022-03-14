@@ -4,7 +4,7 @@ contract Fundraiser {
     string public name;
     string public url;
     string public imageURL;
-    string public bio;
+    string public description;
     
     constructor(
         string memory _name,
@@ -17,7 +17,7 @@ contract Fundraiser {
         name = _name;
         url = _url;
         imageURL = _imageURL;
-        bio = _description;
+        description = _description;
     }
 
 }
