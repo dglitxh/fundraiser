@@ -7,7 +7,7 @@ contract("Fundraiser", accounts => {
     const imageURL = "https://placekitten.com/600/350";
     const description = "Beneficiary description";
     const beneficiary = accounts[1];
-    const custodian = accounts[0];
+    const owner = accounts[0];
 
     describe("initialization", () => {
         beforeEach(async () => {
@@ -17,7 +17,7 @@ contract("Fundraiser", accounts => {
             imageURL,
             description,
             beneficiary,
-            custodian,
+            owner,
         )
     });
     it("gets the beneficiary name", async () => {
@@ -40,9 +40,9 @@ contract("Fundraiser", accounts => {
         const actual = await fundraiser.beneficiary();
         assert.equal(actual, beneficiary, "beneficiary addresses should match")
     })
-    it("gets the custodian", async () => {
-        const actual = await fundraiser.custodian();
-        assert.equal(actual, custodian, "bios should match")
+    it("gets the owner", async () => {
+        const actual = await fundraiser.owner();
+        assert.equal(actual, owner, "bios should match")
     })
   });
 });
