@@ -9,8 +9,7 @@ contract("Fundraiser", accounts => {
     const beneficiary = accounts[1];
     const owner = accounts[0];
 
-    describe("initialization", () => {
-        beforeEach(async () => {
+    beforeEach(async () => {
         fundraiser = await FundraiserContract.new(
             name,
             url,
@@ -20,6 +19,8 @@ contract("Fundraiser", accounts => {
             owner,
         )
     });
+    describe("initialization", () => {
+        
     it("gets the beneficiary name", async () => {
         const actual = await fundraiser.name();
         assert.equal(actual, name, "names should match");
@@ -45,4 +46,22 @@ contract("Fundraiser", accounts => {
         assert.equal(actual, owner, "bios should match")
     })
   });
+  describe("setBeneficiary", () => {
+    const newBeneficiary = accounts[2];
+    it("updated beneficiary when called by owner account", async () => {
+        await fundraiser.setBeneficiary(newBeneficiary, {from: owner});
+        const actualBeneficiary = await fundraiser.beneficiary();
+        assert.equal(actualBeneficiary, newBeneficiary, "beneficiaries should match");
+    });
+    it("throws an error when called from a non-owner account", async () => {
+        try {
+            await fundraiser.setBeneficiary(newBeneficiary, {from: accounts[3]});
+            assert.fail("withdraw was not restricted to owners")
+    } catch(err) {
+        const expectedError = "Ownable: caller is not the owner"
+        const actualError = err.reason;
+        assert.equal(actualError, expectedError, "should not be permitted")
+        }
+      })
+    });
 });
