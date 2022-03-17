@@ -46,6 +46,7 @@ contract("Fundraiser", accounts => {
         assert.equal(actual, owner, "bios should match")
     })
   });
+
   describe("setBeneficiary", () => {
     const newBeneficiary = accounts[2];
     it("updated beneficiary when called by owner account", async () => {
@@ -62,6 +63,31 @@ contract("Fundraiser", accounts => {
         const actualError = err.reason;
         assert.equal(actualError, expectedError, "should not be permitted")
         }
-      })
-    });
+     })
+   });
+
+   describe("making donations", () => {
+       const value = web3.utils.toWei('0.0289');
+       const donor = accounts[0];
+
+       it("increase myDonationsCount", async () => {
+           const currentDonationsCount = await fundraiser.myDonationsCount(
+               {from: donor}
+           );
+
+           await fundraiser.donate({from: donor, value});
+
+           const newDonationsCount = await fundraiser.myDonationsCount(
+               {from: donor}
+           );
+
+           asert.equal(
+               1, 
+               newDonationsCount - currentDonationsCount,
+               "myDonationsCount should increment by 1"
+           )
+       })
+       it("includes donation in myDonations")   
+   });
+
 });
