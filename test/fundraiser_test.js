@@ -81,7 +81,7 @@ contract("Fundraiser", accounts => {
                {from: donor}
            );
 
-           asert.equal(
+           assert.equal(
                1, 
                newDonationsCount - currentDonationsCount,
                "myDonationsCount should increment by 1"
