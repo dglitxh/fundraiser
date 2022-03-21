@@ -52,4 +52,30 @@ contract Fundraiser is Ownable{
         });
         _donations[msg.sender].push(donation);
     }
+
+    function multipleReturns() pure public returns(uint256, uint256) {
+        return (1, 2);
+    }
+
+    function multipleReturnsWithNames() pure public returns(uint256 a, uint256 b) {
+        a = 1;
+        b = 2;
+        return (a, b);
+    }
+
+    function myDonations() public view returns(
+        uint256[] memory values,
+        uint256[] memory dates
+    ){
+        uint256 count = myDonationsCount();
+        values = new uint256[](count);
+        dates = new uint256[](count);
+
+        for (uint256 i=0; i < count; i++){
+            Donation storage donation = _donations[msg.sender][0];
+            values[i] = donation.value;
+            dates[i] = donation.date;
+        }
+        return (values, dates);
+    }
 }
