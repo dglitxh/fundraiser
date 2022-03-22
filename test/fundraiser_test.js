@@ -109,7 +109,7 @@ contract("Fundraiser", accounts => {
            const currentDonationsCount = await fundraiser.donationsCount();
            await fundraiser.donate({from: donor, value});
            const newDonationsCount = await fundraiser.donationsCount();
-           assert.equal(1, newDonationsCount = currentDonationsCount,
+           assert.equal(1, newDonationsCount - currentDonationsCount,
                         "donationsCount should increment by 1")
        })
    });
