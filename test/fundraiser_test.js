@@ -147,5 +147,16 @@ contract("Fundraiser", accounts => {
             assert.fail("should not have thrown an error");
         }
     });
+    it("transfers balance to beneficiary", async () => {
+        const currentContractBalance = await web3.eth.getBalance(fundraiser.address);
+        const currentBeneficiaryBalance = await web3.eth.getBalance(beneficiary);
+        await fundraiser.withdraw({from: owner});
+
+        const newContractBalance = await web3.eth.getBalance(fundraiser.address);
+        const newBeneficiaryBalance = await web3.eth.getBalance(beneficiary);
+        const beneficiaryDifference = newBeneficiaryBalance - currentBeneficiaryBalance;
+        assert.equal(newContractBalance, 0, "contract should have a 0 balance")
+        assert.equal(beneficiaryDifference, currentContractBalance, "beneficiary should receive all the funds")
+    })
     });
 });
