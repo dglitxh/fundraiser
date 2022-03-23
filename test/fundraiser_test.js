@@ -158,5 +158,12 @@ contract("Fundraiser", accounts => {
         assert.equal(newContractBalance, 0, "contract should have a 0 balance")
         assert.equal(beneficiaryDifference, currentContractBalance, "beneficiary should receive all the funds")
     })
+    it("emits withdraw event", async () => {
+        const tx = await fundraiser.withdraw({from: owner});
+        const expectedEvent = "Withdraw";
+        const actualEvent = tx.logs[0].event;
+
+        assert.equal(actualEvent, expectedEvent, "events should match")
+    })
     });
 });
