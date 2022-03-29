@@ -5,6 +5,7 @@ import "./Fundraiser.sol";
 contract Factory{
 
     Fundraiser[] private _fundraisers;
+    event FundraiserCreated(Fundraiser indexed fundreaser, address indexed owner);
 
     function createFundraiser(
     string memory name,
@@ -19,15 +20,15 @@ contract Factory{
         name,
         url,
         imageURL,
-        description,
+        bio,
         beneficiary,
         msg.sender
     );
     _fundraisers.push(fundraiser);
-        emit FundraiserCreated(fundraiser);
+        emit FundraiserCreated(fundraiser, msg.sender);
     }
 
     function fundraiserCount() public view returns(uint256) {
-        return _fundraisers.length
+        return _fundraisers.length;
     }
 }
