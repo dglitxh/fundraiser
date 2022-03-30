@@ -31,4 +31,8 @@ contract Factory{
     function fundraiserCount() public view returns(uint256) {
         return _fundraisers.length;
     }
+
+    function fundraisers(uint256 limit, uint256 offset) public view returns(fundraiser[] memory coll){
+        return coll;
+    }
 }
