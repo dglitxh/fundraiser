@@ -32,7 +32,10 @@ contract Factory{
         return _fundraisers.length;
     }
 
-    function fundraisers(uint256 limit, uint256 offset) public view returns(fundraiser[] memory coll){
+    function fundraisers(uint256 limit, uint256 offset) public view returns(Fundraiser[] memory coll){
+
+        uint256 size = fundraiserCount() < limit ? fundraiserCount() : limit;
+        coll = new Fundraiser[](size);
         return coll;
     }
 }
