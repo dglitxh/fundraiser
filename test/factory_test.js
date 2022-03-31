@@ -23,7 +23,7 @@ contract("FundraiserFactory: createFundraiser", accounts => {
             name,
             url,
             imageURL,
-            description,
+            bio,
             beneficiary
         );
 
