@@ -38,6 +38,9 @@ contract Factory{
         uint256 size = fundraiserCount() < limit ? fundraiserCount() : limit;
         size = size < maxLimit ? size : maxLimit;
         coll = new Fundraiser[](size);
+       for(uint256 i = 0; i < size; i++) {
+            coll[i] = _fundraisers[offset + i];
+        }
         return coll;
     }
 }
