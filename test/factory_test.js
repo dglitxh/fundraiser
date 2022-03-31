@@ -1,4 +1,5 @@
 const FundraiserFactoryContract = artifacts.require("Factory");
+const Fundraiser = artifacts.require("Fundraiser")
 
 contract("FundraiserFactory: deployment", () => {
     it("has been deployed", async () => {
@@ -103,4 +104,22 @@ contract("FundraiserFactory: fundraisers", (accounts) => {
             );
          });
      })
+     describe("varying offset", () => {
+        let factory;
+        beforeEach(async () => {
+            factory = await createFundraiserFactory(10, accounts);
+        });
+        it("contains the fundraiser with the appropriate offset", async ()=>{
+            const fundraisers = await factory.fundraisers(1, 0);
+            const fundraiser = await Fundraiser.at(fundraisers[0]);
+            const name = await fundraiser.name();
+            assert.ok(await name.includes(0), `${name} did not include the offset`);
+        });
+        xit("contains the fundraiser with the appropriate offset", async ()=>{
+            const fundraisers = await factory.fundraisers(1, 7);
+            const fundraiser = await Fundraiser.at(fundraisers[0]);
+            const name = await fundraiser.name();
+            assert.ok(await name.includes(7), `${name} did not include the offset`);
+        });
+    });
 });
