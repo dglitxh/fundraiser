@@ -6,6 +6,7 @@ contract Factory{
 
     Fundraiser[] private _fundraisers;
     event FundraiserCreated(Fundraiser indexed fundreaser, address indexed owner);
+    uint256 constant maxLimit = 20;
 
     function createFundraiser(
     string memory name,
